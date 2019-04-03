@@ -8,10 +8,13 @@ from django.http import Http404
 
 def all_Charities(request):
     charities = Charity.objects.all()
-    data = {}
+    data = []
     for charity in charities:
-        data[charity.id] = charity.name
-    return JsonResponse( data)
+        myDict = {}
+        myDict["id"]= charity.id
+        myDict["name"] = charity.name
+        data.append(myDict)
+    return JsonResponse( data, safe=False)
 
 def charity_detail(request, charity_id):
     try:
